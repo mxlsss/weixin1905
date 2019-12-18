@@ -22,9 +22,11 @@ class VoteController extends Controller
      $info=$this->userInfo($data['access_token'],$data['openid']);
         $key='vote:1905wx';
         if(Redis::zrank($key,$info['openid'])){
-            echo "已经投过票了";
+            echo "已经投过票了";echo '</br>';
         }else{
             Redis::zadd($key,time(),$info['openid']);
+            echo "投票成功";
+            echo '</br>';
         }
 
         $total = Redis::zCard($key);        // 获取总数
