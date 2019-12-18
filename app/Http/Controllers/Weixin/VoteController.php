@@ -20,20 +20,8 @@ class VoteController extends Controller
 //        dd($data);
         //获取用户信息
      $info=$this->userInfo($data['access_token'],$data['openid']);
-      /**$key='vote:1905';
-        $scard=Redis::scard($key);
-        $smembers=Redis::smembers($key);
-        if(Redis::sismember($key,$info['openid'])) {
-            echo "已经投票了,总票数:".$scard;
-            echo '<pre>';print_r($smembers);echo '</pre>';
-        }else{
-            Redis::sadd($key,$info['openid']);
-            $scard=Redis::scard($key);
-            echo "投票成功";
-
-        }**/
         $key='vote:1905wx';
-        if(Redis::zadd($key,time(),$info['openid'])){
+        if(Redis::zrank($key,$info['openid'])){
             echo "已经投过票了";
         }else{
             Redis::zadd($key,time(),$info['openid']);
