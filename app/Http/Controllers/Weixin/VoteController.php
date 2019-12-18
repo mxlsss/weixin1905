@@ -33,7 +33,6 @@ class VoteController extends Controller
 
         }**/
         $key='vote:1905wx';
-       dd(Redis::zrank($key,$info['openid']));
         if(Redis::zrank($key,$info['openid'])){
             echo "已经投过票了";
         }else{
