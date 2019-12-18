@@ -20,3 +20,7 @@ Route::get('/wx','Weixin\WeixinController@wx');
 Route::post('/wx','Weixin\WeixinController@receiv');
 Route::get('/wx/picture','Weixin\WeixinController@picture');
 Route::get('/caidan','Weixin\WeixinController@caidan');
+
+
+//VOTE 投票
+Route::get('/vote','Weixin\VoteController@index');

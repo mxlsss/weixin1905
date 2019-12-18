@@ -304,6 +304,9 @@ class WeixinController extends Controller
     public  function  caidan(){
         $access_token = $this->GetAccessToken();
         $url="https://api.weixin.qq.com/cgi-bin/menu/create?access_token=$access_token";
+
+        $https='http://1905mxl.comcto.com/vote';
+        $redirect_uri=urlencode($https);
         $ment=[
          "button"=>[
              [
@@ -312,19 +315,9 @@ class WeixinController extends Controller
                  "key"=>"tianqi"
              ],
              [
-                 'name'=>'菜单',
-                 'sub_button'=>[
-                     [
-                         "type"=>"click",
-                         "name"=>"123",
-                         "key"=>"123"
-                     ],
-                     [
-                         "type"=>"view",
-                         "name"=>"百度",
-                         "url"=>"http://www.baidu.com"
-                     ]
-                        ]
+                 "type"=>"view",
+                 "name"=>"投票",
+                 "url"=>"https://open.weixin.qq.com/connect/oauth2/authorize?appid=".env('WX_APPID')."&redirect_uri=".$redirect_uri."&response_type=code&scope=snsapi_userinfo&state=ABCD1905#wechat_redirect"
              ]
         ]
 
@@ -334,6 +327,7 @@ class WeixinController extends Controller
         $aaa=$client->request('POST',$url,[
             'body'=>$json_ment
         ]);
+        echo '<pre>';print_r($ment);echo '</pre>';
         echo $aaa->getBody();
 
 
