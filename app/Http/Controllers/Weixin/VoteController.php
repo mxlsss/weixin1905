@@ -21,10 +21,20 @@ class VoteController extends Controller
         //获取用户信息
         $info=$this->userInfo($data['access_token'],$data['openid']);
         $key='vote:1905';
-        if(Redis::sismember($key,$info['openid'])){
-            dd('123');
+        $scard=Redis::scard($key);
+        $smembers=Redis::smembers($key);
+        if(Redis::sismember($key,$info['openid'])) {
+            echo "已经投票了,总票数:".$scard;
+               print_r($smembers);die;
+        }else{
+            Redis::sadd($key,$info['openid']);
+            $scard=Redis::scard($key);
+            echo "投票成功".$scard;
+
         }
-        Redis::sadd($key,$info['openid']);
+
+
+
 
     }
 
