@@ -21,7 +21,7 @@ class VoteController extends Controller
         //获取用户信息
         $info=$this->userInfo($data['access_token'],$data['openid']);
         $key='vote:1905';
-        if(Redis::smembers($key)==$info['openid']){
+        if(Redis::sismember($key,$info['openid'])){
             dd('123');
         }
         Redis::sadd($key,$info['openid']);
