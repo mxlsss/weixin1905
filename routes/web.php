@@ -24,4 +24,4 @@ Route::get('/caidan','Weixin\WeixinController@caidan');
 
 //VOTE 投票
 Route::get('/vote','Weixin\VoteController@index');
-Route::get('/index','Index\IndexController@index');
+Route::get('/shouye','Index\IndexController@index');
