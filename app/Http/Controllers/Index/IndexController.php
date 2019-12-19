@@ -16,7 +16,7 @@ class IndexController extends Controller
         //获取用户信息
         $info=$this->userInfo($data['access_token'],$data['openid']);
 
-      return view('index.idnex',['info'=>$info]);
+      return view('index.index',['info'=>$info]);
 
 
     }
