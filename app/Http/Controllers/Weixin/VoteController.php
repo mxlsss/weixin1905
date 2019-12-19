@@ -32,7 +32,7 @@ class VoteController extends Controller
         $total = Redis::zCard($key);        // 获取总数
         echo '投票总人数： '.$total;echo '</br>';
         $members = Redis::zRange($key,0,-1,true);       // 获取所有投票人的openid
-        echo '<pre>';print_r($members);echo '</pre>';
+//        echo '<pre>';print_r($members);echo '</pre>';
         foreach($members as $k=>$v){
             echo "用户： ".$k . ' 投票时间: '. date('Y-m-d H:i:s',$v);echo '</br>';
         }
