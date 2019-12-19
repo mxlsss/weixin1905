@@ -20,6 +20,8 @@ class VoteController extends Controller
 //        dd($data);
         //获取用户信息
      $info=$this->userInfo($data['access_token'],$data['openid']);
+        $keys='h:info'.$info['openid'];
+        Redis::hMset($keys,$info);
         $key='vote:1905wx';
         if(Redis::zrank($key,$info['openid'])){
             echo "已经投过票了";echo '</br>';
@@ -34,7 +36,11 @@ class VoteController extends Controller
         $members = Redis::zRange($key,0,-1,true);       // 获取所有投票人的openid
 //        echo '<pre>';print_r($members);echo '</pre>';
         foreach($members as $k=>$v){
-            echo "用户： ".$k . ' 投票时间: '. date('Y-m-d H:i:s',$v);echo '</br>';
+//            echo "用户： ".$k . ' 投票时间: '. date('Y-m-d H:i:s',$v);echo '</br>';
+            $u_k = 'h:info'.$k;
+            $u = Redis::hgetAll($u_k);
+            //$u = Redis::hMget($u_k,['openid','nickname','sex','headimgurl']);
+            echo ' <img src="'.$u['headimgurl'].'"> ';
         }
 
 
