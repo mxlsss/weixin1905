@@ -307,6 +307,8 @@ class WeixinController extends Controller
 
         $https='http://1905mxl.comcto.com/vote';
         $redirect_uri=urlencode($https);
+        $httpss='http://1905mxl.comcto.com/index';
+        $redirect_uri2=urlencode($httpss);
         $ment=[
          "button"=>[
              [
@@ -318,7 +320,12 @@ class WeixinController extends Controller
                  "type"=>"view",
                  "name"=>"投票",
                  "url"=>"https://open.weixin.qq.com/connect/oauth2/authorize?appid=".env('WX_APPID')."&redirect_uri=".$redirect_uri."&response_type=code&scope=snsapi_userinfo&state=ABCD1905#wechat_redirect"
-             ]
+             ],
+             [
+             "type"=>"view",
+             "name"=>"商场",
+             "url"=>"https://open.weixin.qq.com/connect/oauth2/authorize?appid=".env('WX_APPID')."&redirect_uri=".$redirect_uri2."&response_type=code&scope=snsapi_userinfo&state=ABCD1905sc#wechat_redirect"
+         ]
         ]
 
  ];
