@@ -307,7 +307,7 @@ class WeixinController extends Controller
 
         $https='http://1905mxl.comcto.com/vote';
         $redirect_uri=urlencode($https);
-        $httpss='http://1905mxl.comcto.com/index';
+        $httpss='http://1905mxl.comcto.com/shouye';
         $redirect_uri2=urlencode($httpss);
         $ment=[
          "button"=>[
