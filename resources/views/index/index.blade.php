@@ -456,27 +456,18 @@
 	<div class="section product">
 		<div class="container">
 			<div class="section-head">
-				<h4>NEW PRODUCT</h4>
+				<h4>新品</h4>
 				<div class="divider-top"></div>
 				<div class="divider-bottom"></div>
 			</div>
 			<div class="row">
+                @foreach($goodsinfo as $v)
 				<div class="col s6">
 					<div class="content">
-						<img src="index/img/product-new1.png" alt="">
-						<h6><a href="">Fashion Men's</a></h6>
+						<img src="{{$v->img}}" alt="">
+						<h6><a href="">{{$v->goods_name}}</a></h6>
 						<div class="price">
-							$20 <span>$28</span>
-						</div>
-						<button class="btn button-default">ADD TO CART</button>
-					</div>
-				</div>
-				<div class="col s6">
-					<div class="content">
-						<img src="index/img/product-new2.png" alt="">
-						<h6><a href="">Fashion Men's</a></h6>
-						<div class="price">
-							$20 <span>$28</span>
+							${{$v->price}} <span>${{$v->price}}</span>
 						</div>
 						<button class="btn button-default">ADD TO CART</button>
 					</div>

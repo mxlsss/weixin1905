@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\Controller;
+use App\Model\GoodsModel;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -14,11 +15,13 @@ class IndexController extends Controller
 //        dd($data);
         //获取用户信息
         $info=$this->userInfo($data['access_token'],$data['openid']);
-
-      return view('index.index',['info'=>$info]);
-
+         //获取商品信息
+        $goodsinfo=GoodsModel::get();
+      return view('index.index',['info'=>$info,'goodsinfo'=>$goodsinfo]);
 
     }
+
+
     protected function access_token($code){
 
         $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APPID').'&secret='.env('WX_APPSECREET').'&code='.$code.'&grant_type=authorization_code';
@@ -26,9 +29,6 @@ class IndexController extends Controller
         return json_decode($data,true);
 
     }
-
-
-
     protected  function userInfo($access_token,$openid){
         $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
 

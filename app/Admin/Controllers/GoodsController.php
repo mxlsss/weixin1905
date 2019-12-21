@@ -28,7 +28,7 @@ class GoodsController extends AdminController
 
         $grid->column('goods_id', __('Goods id'));
         $grid->column('goods_name', __('Goods name'));
-        $grid->column('img', __('Img'));
+        $grid->column('img', __('Img'))->image();
         $grid->column('price', __('Price'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
