@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('info',function(){
+    phpinfo();
+});
 
 
 Route::get('/wx','Weixin\WeixinController@wx');
@@ -24,4 +27,5 @@ Route::get('/caidan','Weixin\WeixinController@caidan');
 
 //VOTE 投票
 Route::get('/vote','Weixin\VoteController@index');
+Route::get('/quefa','Weixin\VoteController@quefa');
 Route::get('/shouye','Index\IndexController@index');

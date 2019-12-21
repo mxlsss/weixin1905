@@ -14,6 +14,8 @@ Route::group([
     $router->resource('users', WxUserController::class);
     $router->resource('msg', WxLiuyanController::class);
     $router->resource('img', WxImgController::class);
+    $router->resource('goods', GoodsController::class);
+
 
 
 
