@@ -472,6 +472,7 @@
 						<button class="btn button-default">ADD TO CART</button>
 					</div>
 				</div>
+                    @endforeach
 			</div>
 			<div class="row margin-bottom">
 				<div class="col s6">
