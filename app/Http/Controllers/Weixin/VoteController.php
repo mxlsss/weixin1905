@@ -107,10 +107,8 @@ class VoteController extends Controller
 //         dd($openid);
         $data=[
             'filter'=>[
-                "is_to_all":false,
-                    "tag_id":2
+                "is_to_all"=>true,
             ],
-             'touser'=>$openid,
             'msgtype'=>'text',
             'text'=>[ 'content'=>$res]
         ];
