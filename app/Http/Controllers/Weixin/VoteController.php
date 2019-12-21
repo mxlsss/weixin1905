@@ -92,7 +92,7 @@ class VoteController extends Controller
         $keys = "wx_access_token";
         $access_token = Redis::get($keys);
         if (!$access_token) {
-            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . env('WX_APPID') . '&secret=' . env('WX_APPSECREET');
+            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECREET');
             $data_json = file_get_contents($url);
             $arr = json_decode($data_json, true);
             Redis::set($keys, $arr['access_token']);
@@ -100,7 +100,7 @@ class VoteController extends Controller
             $access_token=$arr['access_token'];
         }
 
-            $url="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token".$access_token;
+            $url="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$access_token;
 //      $openid=WxUserModel::get('openid')->toArray();
         $openid=WxUserModel::select('openid')->get()->toArray();
         $openid=array_column($openid,'openid');
