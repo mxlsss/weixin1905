@@ -106,7 +106,7 @@ class VoteController extends Controller
         $openid=array_column($openid,'openid');
 //         dd($openid);
         $data=[
-             'filter'=>$openid,
+             'touser'=>$openid,
             'msgtype'=>'text',
             'text'=>[ 'content'=>$res]
         ];
