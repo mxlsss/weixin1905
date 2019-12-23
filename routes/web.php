@@ -27,5 +27,13 @@ Route::get('/caidan','Weixin\WeixinController@caidan');
 
 //VOTE 投票
 Route::get('/vote','Weixin\VoteController@index');
+
+//群发
 Route::get('/quefa','Weixin\VoteController@quefa');
+
+//二维码
+Route::get('/QR','Weixin\VoteController@QR');
+
+//商场
 Route::get('/shouye','Index\IndexController@index');
+
