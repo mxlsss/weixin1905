@@ -464,7 +464,7 @@
                 @foreach($goodsinfo as $v)
 				<div class="col s6">
 					<div class="content">
-						<img src="/storage{{$v->img}}">
+						<img src="/storage/{{$v->img}}">
 						<h6><a href="">{{$v->goods_name}}</a></h6>
 						<div class="price">
 							${{$v->price}} <span>${{$v->price}}</span>
