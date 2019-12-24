@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\Controller;
 use App\Model\GoodsModel;
+use App\Model\WxUserModel;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -36,4 +37,33 @@ class IndexController extends Controller
         return json_decode($data,true);
     }
 
+
+    public function newYear()
+    {
+        $wx_appid = env('WX_APPID');
+        $noncestr = Str::random(8);
+        $timestamp = time();
+        $url = env('APP_URL') . $_SERVER['REQUEST_URI'];    //当前页面的URL
+        $signature = $this->signature($noncestr,$timestamp,$url);
+
+        $data = [
+            'appid'         => $wx_appid,
+            'timestamp'     => $timestamp,
+            'noncestr'      => $noncestr,
+            'signature'     => $signature
+        ];
+
+        return view('index.index',$data);
+    }
+    // 计算jsapi签名
+    public function signature($noncestr,$timestamp,$url)
+    {
+        $noncestr = $noncestr;
+        // 1 获取 jsapi ticket
+        $ticket = WxUserModel::getJsapiTicket();
+        // 拼接带签名字符串
+        $string1 = "jsapi_ticket={$ticket}&noncestr={$noncestr}&timestamp={$timestamp}&url={$url}";
+        // sha1
+        return  sha1($string1);
+    }
 }

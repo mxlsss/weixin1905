@@ -155,4 +155,6 @@ class VoteController extends Controller
         return $arr['access_token'];
     }
 
+
+
 }
