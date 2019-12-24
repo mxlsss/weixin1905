@@ -36,5 +36,5 @@ Route::get('/QR','Weixin\VoteController@QR');
 
 //商场
 Route::get('/shouye','Index\IndexController@index');
-Route::get('/newYear','Index\IndexController@newYear');
+Route::get('/newyear','Index\IndexController@newYear');
 
