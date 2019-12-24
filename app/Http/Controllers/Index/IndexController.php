@@ -18,7 +18,21 @@ class IndexController extends Controller
         $info=$this->userInfo($data['access_token'],$data['openid']);
          //获取商品信息
         $goodsinfo=GoodsModel::get();
-      return view('index.index',['info'=>$info,'goodsinfo'=>$goodsinfo]);
+
+        $wx_appid = env('WX_APPID');
+        $noncestr = Str::random(8);
+        $timestamp = time();
+        $url = env('APP_URL') . $_SERVER['REQUEST_URI'];    //当前页面的URL
+        $signature = $this->signature($noncestr,$timestamp,$url);
+
+        $data = [
+            'appid'         => $wx_appid,
+            'timestamp'     => $timestamp,
+            'noncestr'      => $noncestr,
+            'signature'     => $signature
+        ];
+
+      return view('index.index',['info'=>$info,'goodsinfo'=>$goodsinfo,'data'=>$data]);
 
     }
 
@@ -38,23 +52,6 @@ class IndexController extends Controller
     }
 
 
-    public function newYear()
-    {
-        $wx_appid = env('WX_APPID');
-        $noncestr = Str::random(8);
-        $timestamp = time();
-        $url = env('APP_URL') . $_SERVER['REQUEST_URI'];    //当前页面的URL
-        $signature = $this->signature($noncestr,$timestamp,$url);
-
-        $data = [
-            'appid'         => $wx_appid,
-            'timestamp'     => $timestamp,
-            'noncestr'      => $noncestr,
-            'signature'     => $signature
-        ];
-
-        return view('index.index',['data'=>$data]);
-    }
     // 计算jsapi签名
     public function signature($noncestr,$timestamp,$url)
     {
