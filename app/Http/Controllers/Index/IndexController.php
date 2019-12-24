@@ -53,7 +53,7 @@ class IndexController extends Controller
             'signature'     => $signature
         ];
 
-        return view('index.index',$data);
+        return view('index.index',['data'=>$data]);
     }
     // 计算jsapi签名
     public function signature($noncestr,$timestamp,$url)
