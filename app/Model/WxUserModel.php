@@ -11,7 +11,7 @@ class WxUserModel extends Model
     protected  $primaryKey='uid';
 
 
-    protected function getAccessToken()
+    protected static function getAccessToken()
     {
         $key = 'wx_access_token';
         $access_token = Redis::get($key);
