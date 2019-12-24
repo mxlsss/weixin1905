@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\GoodsModel;
 use App\Model\WxUserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class IndexController extends Controller
 {
