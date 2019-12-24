@@ -20,20 +20,21 @@ class IndexController extends Controller
          //获取商品信息
         $goodsinfo=GoodsModel::get();
 
-        $wx_appid = env('WX_APPID');
-        $noncestr = Str::random(8);
-        $timestamp = time();
-        $url = env('APP_URL') . $_SERVER['REQUEST_URI'];    //当前页面的URL
-        $signature = $this->signature($noncestr,$timestamp,$url);
-
-        $data = [
-            'appid'         => $wx_appid,
-            'timestamp'     => $timestamp,
-            'noncestr'      => $noncestr,
-            'signature'     => $signature
+        $nonceStr = Str::random(8);
+        $signature = "";
+        $wx_config = [
+            'appId'     => env('WX_APPID'),
+            'timestamp' => time(),
+            'nonceStr'  => $nonceStr,
+            //'signature' => $signature,
+            'jsApiList' => ['updateAppMessageShareData','updateTimelineShareData']
         ];
+        $ticket = WxUserModel::getJsapiTicket();
+        $url = $_SERVER['APP_URL'] . $_SERVER['REQUEST_URI'];;      //  当前url
+        $jsapi_signature = WxUserModel::jsapiSign($ticket,$url,$wx_config);
+        $wx_config['signature'] = $jsapi_signature;
 
-      return view('index.index',['info'=>$info,'goodsinfo'=>$goodsinfo,'data'=>$data]);
+      return view('index.index',['info'=>$info,'goodsinfo'=>$goodsinfo,'wx_config'=>$wx_config]);
 
     }
 
