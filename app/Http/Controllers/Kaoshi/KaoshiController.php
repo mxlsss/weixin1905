@@ -14,6 +14,22 @@ use GuzzleHttp\Client;
 class KaoshiController extends Controller
 {
 
+
+    //获取token
+    public function GetAccessToken()
+    {
+        $keys = "wx_access_token";
+        $access_token = Redis::get($keys);
+        if ($access_token) {
+            return $access_token;
+        }
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . env('WX_APPID') . '&secret=' . env('WX_APPSECREET');
+        $data_json = file_get_contents($url);
+        $arr = json_decode($data_json, true);
+        Redis::set($keys, $arr['access_token']);
+        Redis::expire($keys, 3600);
+        return $arr['access_token'];
+    }
     //get接入微信
     public function wx()
     {
