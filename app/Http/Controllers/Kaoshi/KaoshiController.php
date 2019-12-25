@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Controllers\Kaoshi;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Model\WxImgModel;
+use App\Model\WxLiuyanModel;
+use App\Model\WxUserModel;
+use Illuminate\Support\Facades\Redis;
+use GuzzleHttp\Client;
+
+
+class KaoshiController extends Controller
+{
+
+    //get接入微信
+    public function wx()
+    {
+        $token = '90d162aa1f38ee74a8a7041bd2201ba4';
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+        $echostr = $_GET['echostr'];
+
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode($tmpArr);
+        $tmpStr = sha1($tmpStr);
+
+
+        if ($tmpStr == $signature) {
+            echo $echostr;
+        } else {
+            die('not ok');
+        }
+
+    }
+    // 传参
+    public function receiv()
+    {
+        $log_file = 'wx.log';
+        $xml_str = file_get_contents("php://input");
+        //将接收的数据记录到日志文件
+        $data = date('Y-m-d H:i:s') . $xml_str;
+        file_put_contents($log_file, $data, FILE_APPEND);         //追加写
+        //处理xml数据
+        $xml_obj = simplexml_load_string($xml_str);
+        //获取TOKEN
+        $access_token = $this->GetAccessToken();
+        //调用微信用户信息
+        $yonghu = $this->getUserInfo($access_token, $xml_obj->FromUserName);
+        //转换用户信息
+        $userInfo = json_decode($yonghu, true);
+
+
+    }
+}

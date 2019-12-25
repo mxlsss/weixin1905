@@ -610,8 +610,6 @@
 	<script src="index/js/animatedModal.min.js"></script>
 	<script src="index/js/main.js"></script>
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
-
-
     <script type="text/javascript">
 
         wx.config({
@@ -623,7 +621,7 @@
             jsApiList: ['updateAppMessageShareData','updateTimelineShareData'] // 必填，需要使用的JS接口列表
         });
 
-            wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
+            wx.ready(function(){   //需在用户可能点击分享按钮前就先调用
                 wx.updateAppMessageShareData({
                     title: '圣诞节快乐', // 分享标题
                     desc: '今晚平安夜', // 分享描述
@@ -634,8 +632,8 @@
                     }
                 })
             });
-            // 分享到盆友圈
-            wx.ready(function () {      //需在用户可能点击分享按钮前就先调用
+            // 分享到朋友圈
+            wx.ready(function(){      //需在用户可能点击分享按钮前就先调用
                 wx.updateTimelineShareData({
                     title: '今晚有苹果吃吗', // 分享标题
                     link: 'http://1905mxl.comcto.com/shouye', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致

@@ -18,7 +18,7 @@ Route::get('info',function(){
     phpinfo();
 });
 
-
+//接入微信
 Route::get('/wx','Weixin\WeixinController@wx');
 Route::post('/wx','Weixin\WeixinController@receiv');
 Route::get('/wx/picture','Weixin\WeixinController@picture');
@@ -38,3 +38,6 @@ Route::get('/QR','Weixin\VoteController@QR');
 Route::get('/shouye','Index\IndexController@index');
 
 
+//考试接入微信
+Route::get('/kaoshi','Kaoshi\KaoshiController@wx');
+Route::post('/kaoshi','Kaoshi\KaoshiController@receiv');
