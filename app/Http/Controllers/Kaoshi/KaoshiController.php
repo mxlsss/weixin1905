@@ -227,7 +227,7 @@ class KaoshiController extends Controller
         $openid=array_column($openid,'openid');
 //        dd($openid);
         $data=[
-            'touser'=>$openid,
+            'touser'=>'o6HNJuBSxwuk-51-3jVlKGYsGZ5E	',
             "msgtype"=>"text",
             "text"=>["content"=>$content],
         ];
