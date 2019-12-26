@@ -115,19 +115,50 @@ class KaoshiController extends Controller
              }
              elseif ($xml_obj->Event=='CLICK'){
                if($xml_obj->EventKey=='qiandao'){
-                       echo '2';
-                 }elseif($xml_obj->EventKey=='jifen')
-                   $jifen=WxUserModel::where('openid',$openid)->get('jifen')->toArray();
-//                  dd($jifen);
-                 $content="你好".$xml_obj->nickname."同学\n你的积分为:".$jifen['0']['jifen'];
-                 $huifu='<xml>
+                     $time=date('Y-m-d');
+//                   dd($time);
+                   $qiandao_time=WxUserModel::where('openid',$openid)->select('qiandao_time','nickname','jifen')->get()->toArray();
+//                   dd($qiandao_time['0']['qiandao_time']);
+                   if($qiandao_time['0']['qiandao_time']==$time){
+                       $content="你好".$qiandao_time['0']['nickname']."同学\n你今天已经签到";
+                       $huifu='<xml>
                      <ToUserName><![CDATA[' . $touser . ']]></ToUserName>
                      <FromUserName><![CDATA[' . $fromuser . ']]></FromUserName>
                      <CreateTime>' . $time . '</CreateTime>
                        <MsgType><![CDATA[text]]></MsgType>
                     <Content><![CDATA[' . $content . ']]></Content>
                   </xml>';
-                 echo $huifu;
+                       echo $huifu;
+                   }else{
+                       WxUserModel::where('openid',$openid)->increment('jifen',10);
+                       WxUserModel::where('openid',$openid)->update(['qiandao_time'=>date('Y-m-d')]);
+                       $content="你好".$qiandao_time['0']['nickname']."同学\n签到成功，积分增加10\n点击下方菜单即可查询总积分";
+                       $huifu='<xml>
+                     <ToUserName><![CDATA[' . $touser . ']]></ToUserName>
+                     <FromUserName><![CDATA[' . $fromuser . ']]></FromUserName>
+                     <CreateTime>' . $time . '</CreateTime>
+                       <MsgType><![CDATA[text]]></MsgType>
+                    <Content><![CDATA[' . $content . ']]></Content>
+                  </xml>';
+                       echo $huifu;
+
+                   }
+                 }elseif($xml_obj->EventKey=='jifen'){
+                   $jifen=WxUserModel::where('openid',$openid)->select('jifen','nickname')->get()->toArray();
+//                  dd($jifen);
+                   $content="你好".$jifen['0']['nickname']."同学\n你的积分为:".$jifen['0']['jifen'];
+                   $huifu='<xml>
+                     <ToUserName><![CDATA[' . $touser . ']]></ToUserName>
+                     <FromUserName><![CDATA[' . $fromuser . ']]></FromUserName>
+                     <CreateTime>' . $time . '</CreateTime>
+                       <MsgType><![CDATA[text]]></MsgType>
+                    <Content><![CDATA[' . $content . ']]></Content>
+                  </xml>';
+                   echo $huifu;
+
+
+               }
+
 
              }
 
@@ -185,6 +216,29 @@ class KaoshiController extends Controller
         echo  $aaa->getBody();
 
 
+    }
+
+    //群发
+    public function qunfa(){
+     $content="尊敬的用户您好，目前公司开展签到送积分兑换活动，详情请进入公众号查看";
+        $token=$this->GetAccessToken();
+        $url="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$token;
+
+        $data=[
+            'filter'=>[
+                'is_to_all'=>true,
+            ],
+              "msgtype"=>"text",
+            "text"=>["content"=>"$content"],
+
+
+        ];
+
+        $client = new Client();
+
+        $aaa=$client->request('POST',$url,[
+            'body'=>json_decode($data,JSON_UNESCAPED_UNICODE),
+        ]);
     }
 
 
