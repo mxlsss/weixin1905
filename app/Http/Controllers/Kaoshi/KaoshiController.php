@@ -223,15 +223,11 @@ class KaoshiController extends Controller
      $content="尊敬的用户您好，目前公司开展签到送积分兑换活动，详情请进入公众号查看";
         $token=$this->GetAccessToken();
         $url="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$token;
-
+        $openid=WxUserModel::select('openid')->get()->toArray();
         $data=[
-            'filter'=>[
-                'is_to_all'=>true,
-            ],
-              "msgtype"=>"text",
-            "text"=>["content"=>"$content"],
-
-
+            'touser'=>$openid,
+            "msgtype"=>"text",
+            "text"=>["content"=>$content],
         ];
 
         $client = new Client();
