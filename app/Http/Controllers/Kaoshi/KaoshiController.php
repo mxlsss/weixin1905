@@ -71,4 +71,17 @@ class KaoshiController extends Controller
 
 
     }
+
+
+    //获取用户基本信息
+    public function getUserInfo($access_token, $openid)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=' . $access_token . '&openid=' . $openid . '&lang=zh_CN';
+        //发送网络请求
+        $json_str = file_get_contents($url);
+        $log_file = 'wx.user.log';
+        file_put_contents($log_file, $json_str, FILE_APPEND);
+        return $json_str;
+    }
+
 }
