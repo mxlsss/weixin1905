@@ -97,7 +97,7 @@ class KaoshiController extends Controller
                 <Content><![CDATA[' . $content . ']]></Content>
               </xml>';
 
-                     return $huifu;
+                     echo $huifu;
                  }else{
 //                     dd($data);
                      $a=WxUserModel::insert($data);
@@ -110,7 +110,7 @@ class KaoshiController extends Controller
                 <Content><![CDATA[' . $content . ']]></Content>
               </xml>';
 
-                     return $huifu;
+                     echo $huifu;
 
                  }
              }
