@@ -82,10 +82,9 @@ class KaoshiController extends Controller
 //                 dd($data['openid']);
                    //判断是否关注
                  $u=WxUserModel::where('openid',$openid)->first();
-                 $touser=$xml_obj->ToUserName;
-                 $fromuser=$xml_obj->FromUserName;
+                 $touser=$xml_obj->FromUserName;
+                 $fromuser=$xml_obj->ToUserName;
                  $time=time();
-
 //                 dd($u);
                  if($u){
                      $content="你好".$xml_obj->nickname."同学\n现在北京时间".date('Y-m-d H:i:s')."\n 欢迎回来";
@@ -96,7 +95,6 @@ class KaoshiController extends Controller
                    <MsgType><![CDATA[text]]></MsgType>
                 <Content><![CDATA[' . $content . ']]></Content>
               </xml>';
-
                      echo $huifu;
                  }else{
 //                     dd($data);
@@ -133,5 +131,8 @@ class KaoshiController extends Controller
         file_put_contents($log_file, $json_str, FILE_APPEND);
         return $json_str;
     }
+
+
+
 
 }
