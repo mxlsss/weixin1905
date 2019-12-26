@@ -68,6 +68,56 @@ class KaoshiController extends Controller
         $yonghu = $this->getUserInfo($access_token, $xml_obj->FromUserName);
         //转换用户信息
         $userInfo = json_decode($yonghu, true);
+//        dd($xml_obj);
+        $openid=$xml_obj->FromUserName;
+        if($xml_obj->MsgType=='event'){
+             if($xml_obj->Event=='subscribe'){
+             $data=[
+                   'openid'=>$openid,
+                  'headimgurl'=>$userInfo['headimgurl'],
+                 'sub_time'=>$xml_obj->CreateTime,
+                 'sex'=>$userInfo['sex'],
+                 'nickname'=>$userInfo['nickname'],
+             ];
+//                 dd($data['openid']);
+                   //判断是否关注
+                 $u=WxUserModel::where('openid',$openid)->first();
+                 $touser=$xml_obj->ToUserName;
+                 $fromuser=$xml_obj->FromUserName;
+                 $time=time();
+
+//                 dd($u);
+                 if($u){
+                     $content="你好".$xml_obj->nickname."同学\n现在北京时间".date('Y-m-d H:i:s')."\n 欢迎回来";
+                     $huifu='<xml>
+                 <ToUserName><![CDATA[' . $touser . ']]></ToUserName>
+                 <FromUserName><![CDATA[' . $fromuser . ']]></FromUserName>
+                 <CreateTime>' . $time . '</CreateTime>
+                   <MsgType><![CDATA[text]]></MsgType>
+                <Content><![CDATA[' . $content . ']]></Content>
+              </xml>';
+
+                     return $huifu;
+                 }else{
+//                     dd($data);
+                     $a=WxUserModel::insert($data);
+                     $content="你好".$xml_obj->nickname."同学\n现在北京时间".date('Y-m-d H:i:s')."\n 欢迎关注";
+                     $huifu='<xml>
+                 <ToUserName><![CDATA[' . $touser . ']]></ToUserName>
+                 <FromUserName><![CDATA[' . $fromuser . ']]></FromUserName>
+                 <CreateTime>' . $time . '</CreateTime>
+                   <MsgType><![CDATA[text]]></MsgType>
+                <Content><![CDATA[' . $content . ']]></Content>
+              </xml>';
+
+                     return $huifu;
+
+                 }
+             }
+
+
+        }
+
 
 
     }

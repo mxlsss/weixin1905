@@ -52,8 +52,6 @@ class IndexController extends Controller
         $data= file_get_contents($url);
         return json_decode($data,true);
     }
-
-
     // 计算jsapi签名
     public function signature($noncestr,$timestamp,$url)
     {
@@ -65,4 +63,5 @@ class IndexController extends Controller
         // sha1
         return  sha1($string1);
     }
+
 }
