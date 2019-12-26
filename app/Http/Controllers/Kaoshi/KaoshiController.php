@@ -120,7 +120,7 @@ class KaoshiController extends Controller
                    $qiandao_time=WxUserModel::where('openid',$openid)->select('qiandao_time','nickname','jifen')->get()->toArray();
 //                   dd($qiandao_time['0']['qiandao_time']);
                    if($qiandao_time['0']['qiandao_time']==$time){
-                       $content="你好".$qiandao_time['0']['nickname']."同学\n你今天已经签到";
+                       $content="你好".$qiandao_time['0']['nickname']."同学\n你今天已经签到\n点击下方菜单即可查询总积分";
                        $huifu='<xml>
                      <ToUserName><![CDATA[' . $touser . ']]></ToUserName>
                      <FromUserName><![CDATA[' . $fromuser . ']]></FromUserName>

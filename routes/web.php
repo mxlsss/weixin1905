@@ -42,4 +42,4 @@ Route::get('/shouye','Index\IndexController@index');
 Route::get('/kaoshi','Kaoshi\KaoshiController@wx');
 Route::post('/kaoshi','Kaoshi\KaoshiController@receiv');
 Route::get('/sccd','Kaoshi\KaoshiController@caidan');
-Route::get('/fasong','Weixin\VoteController@quefa');
+Route::get('/fasong','Kaoshi\KaoshiController@quefa');
