@@ -224,6 +224,8 @@ class KaoshiController extends Controller
         $token=$this->GetAccessToken();
         $url="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$token;
         $openid=WxUserModel::select('openid')->get()->toArray();
+        $openid=array_column($openid,'openid');
+//        dd($openid);
         $data=[
             'touser'=>$openid,
             "msgtype"=>"text",
