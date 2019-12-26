@@ -239,6 +239,7 @@ class KaoshiController extends Controller
         $aaa=$client->request('POST',$url,[
             'body'=>json_decode($data,JSON_UNESCAPED_UNICODE),
         ]);
+        echo $aaa->getBody();
     }
 
 
