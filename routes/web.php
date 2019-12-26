@@ -41,3 +41,4 @@ Route::get('/shouye','Index\IndexController@index');
 //考试接入微信
 Route::get('/kaoshi','Kaoshi\KaoshiController@wx');
 Route::post('/kaoshi','Kaoshi\KaoshiController@receiv');
+Route::get('/sccd','Kaoshi\KaoshiController@caidan');
